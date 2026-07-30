@@ -1,4 +1,4 @@
-# Prato Cheio — [nome do grupo]
+# Prato Cheio — System32
 
 Projeto da disciplina **Análise, Projeto e Desenvolvimento Ágil**.
 Conecta doadores de alimentos excedentes a ONGs, antes que a comida se perca.
@@ -7,9 +7,9 @@ Conecta doadores de alimentos excedentes a ONGs, antes que a comida se perca.
 > walking skeleton (U1) → incremento guiado pelo projeto (U2) → produto refatorado (U3).
 
 ## Integrantes
-- Nome — @usuario-github
-- Nome — @usuario-github
-- Nome — @usuario-github
+- Vitor Arthur Keller — @vitorkeller
+- Lucas Camilo Moraes — @hub-Moraes
+-  — @
 
 ## Como rodar
 
@@ -95,3 +95,4 @@ por um teste de verdade conforme implementa.
 A IA pode participar da produção, mas o grupo é responsável por verificar, testar,
 corrigir e **defender** o resultado. Registre em cada Pull Request o que foi gerado
 com IA e o que vocês alteraram.
+# prato-cheio
