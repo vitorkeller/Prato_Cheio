@@ -31,6 +31,38 @@
 - **Pra onde queremos ir:** Esse tempo médio precisa cair ao longo das entregas.
 
 ## Regras de negócio
+**Regra 1 – identificação do doador**
+- **Origem:** Derivada (a vigilância não fala "nome e telefone", mas sem isso não dá pra rastrear).
+- **Enunciado:** Toda doação publicada precisa ter nome completo e telefone de contato do doador.
+- **Como verificar:** Tentar cadastrar sem esses dados, o sistema barra e mostra a mensagem "Nome e telefone do doador são obrigatórios".
+ 
+**Regra 2 – Tipo de alimento com lista fechada**
+- **Origem:** Inventada (a gente padronizou pra facilitar busca).
+- **Enunciado:** O campo tipo de alimento é obrigatório e tem que escolher de uma lista: Refeição pronta, Padaria, Hortifruti, Laticínios, etc. Não pode escrever texto livre.
+- **Como verificar:** Abrir o formulário de doação e ver que o campo é um dropdown com essas opções. Enviar com "tipo" vazio é recusado.
+
+**Regra 3 – Prazo pra ONG retirar**
+- **Origem:** ausente (o caso não diz o que acontece se a ONG aceita e não busca).
+- **Enunciado:** Se a ONG aceitar e não confirmar a retirada em 2 horas, a doação volta pra 'disponível' e a ONG perde a reserva.
+- **Como verificar:** Simular aceitação, não confirmar retirada e checar que depois de 120 minutos a doação fica livre de novo.
+- **Quem decide:** Marta e as ONGs do piloto, até a data de revisão do piloto. Enquanto isso, vale a regra que foi inventada.
+
+## Conflitos de prioridade
+**Conflito escolhido:** A vigilância precisa rastrear quem está doando; o doador quer só fazer a boa ação rápido, sem ter que dar seus dados.
+ 
+**Fala de cada lado:**
+ 
+- **Vigilância/Sistema:** "Eu preciso do nome e do telefone de quem doou. Se der algum problema com a comida, eu tenho que saber o nome do doador."
+ 
+- **Doador:** "Poxa, eu só quero entregar a comida e ajudar. Não quero ficar preenchendo cadastro nem dar meu número pessoal."
+ 
+- **Qual é a briga de verdade:** É a segurança brigando com a praticidade. Para garantir que a comida não vai fazer mal a ninguém, a gente precisa pedir esses dados. O problema é que criar essa barreira de cadastro pode dar preguiça ou desanimar quem só queria fazer uma doação rápida e sem compromisso.
+ 
+- **O que cada lado perde:** Se o sistema aceitar doação anônima, a gente perde o controle e fica correndo o risco de passar comida pra frente sem saber de onde veio. Por outro lado, se a gente exigir os dados, o doador perde a praticidade, e a gente corre o risco de ele achar burocrático demais e desistir de doar.
+ 
+- **Qual é o critério pra decidir:** Como a base dessa regra vem da necessidade da vigilância sanitária, não dá para negociar. Rastrear a comida é o mais importante. É melhor a gente correr o risco de perder um ou outro doador por causa do cadastro do que deixar circular comida de origem desconhecida que pode intoxicar alguém.
+ 
+- **Qual saída a gente usou:** A segurança ganhou sem conversa. A gente simplesmente travou a doação anônima. Se a pessoa tentar publicar sem dar os dados, o sistema não deixa avançar e mostra a mensagem na tela: "Nome e telefone do doador são obrigatórios". Assim a gente garante que nenhuma comida entre no aplicativo sem ter o responsável amarrado a ela.
 
 ## Histórias de usuário
 | # | História (Como… quero… para…) | INVEST: o que falha |
