@@ -9,7 +9,6 @@ Conecta doadores de alimentos excedentes a ONGs, antes que a comida se perca.
 ## Integrantes
 - Vitor Arthur Keller — @vitorkeller
 - Lucas Camilo Moraes — @hub-Moraes
--  — @
 
 ## Como rodar
 
@@ -95,4 +94,3 @@ por um teste de verdade conforme implementa.
 A IA pode participar da produção, mas o grupo é responsável por verificar, testar,
 corrigir e **defender** o resultado. Registre em cada Pull Request o que foi gerado
 com IA e o que vocês alteraram.
-# prato-cheio
