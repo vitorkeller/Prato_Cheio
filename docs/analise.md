@@ -104,3 +104,21 @@
 
 ## Uso de IA
 O que geramos com IA, o que verificamos e o que alteramos.
+
+Este registro é por linha da tabela `## Histórias de usuário`.
+ 
+**Linha 1 - Doador publica rápido**
+- **O que a IA gerou:** a primeira versão veio com a interface pronta dentro da própria história ("formulário com tipo em lista suspensa, quantidade em campo numérico, validade em seletor de data e um botão azul 'Publicar'") e, junto, sugeriu uma regra que ninguém pediu: salvar rascunho automaticamente a cada campo preenchido.
+- **O que mudamos e por quê:** tiramos a interface de dentro da história, virou critério de aceite/protótipo e não incorporamos o autosave.
+- **Regra que ela inventou e quem decide:** "salvar rascunho automaticamente" não existe no caso e colide com a restrição técnica (conexão instável em campo): se o autosave falhar no meio e o doador achar que já publicou, o dado se perde sem aviso. Quem decide se vale a pena é a **Marta**, junto com os doadores do piloto, não o grupo.
+ 
+**Linha 3 - Marta / medição**
+- **O que a IA gerou:** a primeira versão era "um relatório completo de doações, aceites e voluntários, para gerenciar tudo", e a IA emendou uma regra extra: enviar e-mail semanal automático para a Marta com o resumo.
+- **O que mudamos e por quê:** fatiamos a história para o tamanho da métrica que valida a hipótese da Marta nesta iteração (tempo publicação → aceite) e cortamos o envio de e-mail, que virou item de backlog.
+- **Regra que ela inventou e quem decide:** frequência e canal de um relatório automático não estão no caso, e o piloto tem orçamento próximo de zero, e-mail automático tem custo de infraestrutura que ninguém validou. Quem decide é a **Marta**.
+ 
+**Linha 7 - Fatia 3 do gigante (resumo antes de confirmar)**
+- **O que a IA gerou:** a primeira versão trazia "uma modal de confirmação com dois botões, 'Confirmar' verde e 'Cancelar' cinza", sem dizer o que acontece se a confirmação falhar no meio do caminho.
+- **O que mudamos e por quê:** tiramos a modal e as cores viraram critério de aceite e sinalizamos a lacuna abaixo.
+- **O erro de restrição que sumiu:** nenhuma regra de negócio nova apareceu aqui, mas a restrição do caso "roda no navegador do celular do voluntário, com internet ruim" desapareceu do rascunho gerado: a IA assumiu confirmação síncrona e não tratou o que acontece se a requisição não voltar. Como é restrição já dada pelo caso (não regra nova a inventar), não precisa de um "dono" novo para decidir *se* ela vale, só precisa ser reincorporada. O comportamento exato de retry/mensagem de erro fica como decisão do grupo, validada com a **Marta** na revisão do piloto.
+
