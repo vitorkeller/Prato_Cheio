@@ -3,8 +3,15 @@
 *Trabalho 1 · máximo 4 páginas · entrega na Aula 5*
 
 ## Problema central
+Hoje, doadores (restaurantes, padarias, mercados) e ONGs se falam por grupos de WhatsApp, sem organização e sem histórico. Resultado: as ONGs ficam sabendo tarde demais que tem doação disponível, e quando isso acontece com alimento perecível, a comida já estragou antes de alguém buscar. O problema de verdade não é "falta um app", é que não existe um jeito confiável de avisar, na hora certa, que tem comida disponível. Isso gera desperdício de comida boa, menos gente sendo atendida e demora entre a doação ficar pronta e ser coletada.
 
 ## Incertezas
+
+1. **Volume real de doações diárias e taxa de adesão de entidades receptoras:** O caso não dá nenhum número sobre isso, e sem saber o volume não dá pra saber nem que tamanho de sistema precisa ser construído.
+2. **Confirmação de que o tempo de coleta constitui o gargalo do processo:** É só um palpite da Marta, sem nenhuma medição. Se o problema real for outro (tipo falta de voluntário ou de ONG com espaço pra guardar comida), a ferramenta não resolve nada.
+3. **Disposição e frequência de cadastro por parte dos doadores:** Não tem garantia disso, nem de quantas vezes por dia. Isso muda completamente como o cadastro precisa ser desenhado — quanto mais chato de preencher, menos gente usa.
+4. **Definição operacional do critério de proximidade logística entre doador e entidade receptora:** O caso fala que ONG perto do doador leva vantagem, mas não explica como isso é decidido: por distância, por bairro, por quem responde primeiro? Sem isso definido, não dá pra desenhar o banco de dados nem a regra de quem "ganha"a doação.
+5. **Escopo exato das exigências de rastreabilidade impostas pela vigilância sanitária:** O caso cita "tipo, quantidade e validade"como mínimo, mas isso pode não ser tudo. Se depois aparecer mais exigência, o cadastro e o banco de dados vão ter que ser refeitos.
 
 ## Stakeholders
 | Stakeholder | Interesse | Influência | O que espera | O que muda na iteração 1 |
