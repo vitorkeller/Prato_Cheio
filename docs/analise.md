@@ -95,11 +95,26 @@ Hoje, doadores (restaurantes, padarias, mercados) e ONGs se falam por grupos de 
 - **Expiração automática da reserva (Regra 3 — prazo de 120 minutos)**: a Regra 3 está classificada neste documento como "origem: ausente"; Marta e as ONGs do piloto ainda precisam ratificá-la. Implementar antes disso seria decidir uma regra de negócio sem dono.
 
 ## Critérios de aceite
-**História X** — Dado … Quando … Então …
+
+**★ História zero — ONG aceita uma doação e ela sai da lista**
+- Dado que existe uma doação publicada com status "disponível", quando uma ONG a aceita, então a doação passa para o status "aceita", registra o instante do aceite e deixa de aparecer na lista de doações disponíveis.
+- Dado que uma doação já foi aceita por uma ONG, quando uma segunda ONG tenta aceitar essa mesma doação, então a API recusa a segunda tentativa e a doação permanece aceita apenas pela primeira ONG.
+
+**História 1 — Doador publica uma doação em menos de 30 segundos**
+- Dado que o doador informou tipo, quantidade e validade, quando ele envia o formulário de publicação, então a doação é criada com status "disponível" e passa a aparecer na lista de doações disponíveis.
+- Dado que o doador deixou tipo, quantidade ou validade em branco, quando ele tenta enviar o formulário, então a API recusa a publicação (nenhuma doação é criada) e a lista de disponíveis não muda.
+
+**História 3 — Marta vê o tempo entre publicação e aceite**
+- Dado que uma doação foi publicada e depois aceita por uma ONG, quando alguém consulta essa doação, então é possível observar tanto o instante de publicação quanto o instante do aceite.
+- Dado que uma doação foi publicada e ainda não foi aceita por nenhuma ONG, quando alguém a consulta, então o instante de aceite aparece vazio, sem quebrar a listagem de disponíveis.
 
 ## Riscos
+*Escala usada: alta / média / baixa.*
+
 | Risco | Probabilidade | Impacto | Mitigação |
 |---|---|---|---|
+| Um integrante do grupo não conseguir concluir sua parte do walking skeleton a tempo do prazo de 03/09. | Média | Alta | Até 28/08, o grupo divide `src/repositorio.js` e `src/doacoes.js` em tarefas por pessoa; cada um abre PR parcial até 31/08, deixando tempo de revisão antes da entrega. |
+| O repositório ser clonado dentro de uma pasta sincronizada (OneDrive/Drive/Dropbox), fazendo o SQLite falhar com `disk I/O error` na hora da defesa individual. | Baixa | Média | Até 02/09, cada integrante confirma que seu clone local está fora de pastas sincronizadas, rodando `npm test` uma vez antes da Prova 1. |
 
 ## Hipótese e experimento
 
