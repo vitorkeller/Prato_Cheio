@@ -118,11 +118,19 @@ Hoje, doadores (restaurantes, padarias, mercados) e ONGs se falam por grupos de 
 
 ## Hipótese e experimento
 
+Acreditamos que doadores como restaurantes, padarias e mercados aceitam cadastrar cada doação no aplicativo, mesmo sem nenhuma automação (leitura de nota fiscal, preenchimento automático), desde que o formulário leve menos de 30 segundos para preencher.
+
+Saberemos que estávamos errados se, ao cronometrar o preenchimento do formulário com 3 doadores reais (ou substitutos que representem o perfil), a média do tempo de preenchimento for maior que 60 segundos, ou se 2 dos 3 desistirem no meio do processo.
+
+Como medimos: cronometrando pelo celular, do início do preenchimento até o clique em "publicar", numa sessão presencial ou por vídeo-chamada — usando o walking skeleton já rodando localmente, sem precisar de nada em produção.
+
 ## Decisão de análise
-- **Problema:**
+- **Problema:** definir o que entra e o que fica fora da fatia mínima (história zero) para o walking skeleton rodar dentro do prazo do Trabalho 1.
 - **Alternativas:**
-- **Decisão e justificativa:**
-- **Riscos e limitações:**
+  - **A — História zero + autenticação básica de doador e ONG:** ganha rastreabilidade mais forte de quem publica e quem aceita; perde tempo de desenvolvimento e risco de não fechar o walking skeleton no prazo de 03/09.
+  - **B — Apenas a história zero (publicar → listar → aceitar com trava de concorrência), sem autenticação, filtro de proximidade, notificação, foto ou expiração automática da reserva:** ganha uma entrega funcional e testável dentro do prazo; perde completude e segurança, que ficam para as próximas iterações.
+- **Decisão e justificativa:** escolhemos a alternativa B. Ela está ligada ao objetivo de impacto "diminuir o tempo entre a comida ficar disponível e ser coletada" — a linha de base (tempo publicação → aceite) só existe se a história zero estiver rodando ponta a ponta —, e ao risco de estourar o prazo do Trabalho 1 já registrado na tabela acima.
+- **Riscos e limitações:** sem autenticação, qualquer pessoa pode se passar por doador ou por ONG durante o piloto; sem a expiração automática da reserva (Regra 3), uma doação aceita e não retirada fica presa indefinidamente até alguém resolver manualmente.
 
 ## Uso de IA
 O que geramos com IA, o que verificamos e o que alteramos.
