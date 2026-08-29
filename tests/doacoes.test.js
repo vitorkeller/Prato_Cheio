@@ -1,4 +1,4 @@
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect, beforeEach, afterAll } from 'vitest';
 import request from 'supertest';
 import { criarApp } from '../src/app.js';
 import { migrar, limparBanco, encerrar } from '../src/db.js';
@@ -8,11 +8,11 @@ const app = criarApp();
 // Este teste já passa e não depende do banco:
 // prova que a aplicação sobe e que o CI está funcionando.
 describe('a aplicação sobe', () => {
-  it('responde na verificação de saúde', async () => {
-    const res = await request(app).get('/api/saude');
-    expect(res.status).toBe(200);
-    expect(res.body.ok).toBe(true);
-  });
+	it('responde na verificação de saúde', async () => {
+		const res = await request(app).get('/api/saude');
+		expect(res.status).toBe(200);
+		expect(res.body.ok).toBe(true);
+	});
 });
 
 // ---------------------------------------------------------------------------
@@ -26,14 +26,90 @@ describe('a aplicação sobe', () => {
 // ---------------------------------------------------------------------------
 
 describe('publicar e listar doações', () => {
-  it.todo('mostra a doação publicada na lista de disponíveis');
-  it.todo('recusa doação sem os campos obrigatórios');
+	beforeEach(async () => { await migrar(); await limparBanco(); });
+	afterAll(async () => { await encerrar(); });
+
+	// Dado que um doador publicou uma doação
+	// Quando uma ONG consulta as doações disponíveis
+	// Então a doação aparece na lista
+	it('mostra a doação publicada na lista de disponíveis', async () => {
+		await request(app)
+		.post('/api/doacoes')
+		.send({ tipo: 'Sopa', quantidade: '10 porções', validade: '2026-08-01' });
+
+		const res = await request(app).get('/api/doacoes');
+		expect(res.status).toBe(200);
+		expect(res.body).toHaveLength(1);
+		expect(res.body[0].tipo).toBe('Sopa');
+	});
+
+	// Dado que o doador deixou tipo, quantidade ou validade em branco
+	// Quando ele tenta enviar o formulário
+	// Então a API recusa e nenhuma doação é criada
+	it('recusa doação sem os campos obrigatórios', async () => {
+		const res = await request(app)
+		.post('/api/doacoes')
+		.send({ tipo: 'Sopa' });
+
+		expect(res.status).toBe(400);
+
+		const lista = await request(app).get('/api/doacoes');
+		expect(lista.body).toHaveLength(0);
+	});
 });
 
 describe('aceitar uma doação', () => {
-  it.todo('marca a doação como aceita pela ONG');
-  it.todo('remove a doação da lista de disponíveis depois de aceita');
-  it.todo('recusa aceitar uma doação que já foi aceita por outra ONG');
+	beforeEach(async () => { await migrar(); await limparBanco(); });
+	afterAll(async () => { await encerrar(); });
+
+	// Dado que existe uma doação publicada com status "disponível"
+	// Quando uma ONG aceita essa doação
+	// Então a doação passa para o status "aceita"
+	it('marca a doação como aceita pela ONG', async () => {
+		const criada = await request(app)
+		.post('/api/doacoes')
+		.send({ tipo: 'Pão', quantidade: '5kg', validade: '2026-08-02' });
+
+		const res = await request(app)
+		.post(`/api/doacoes/${criada.body.id}/aceitar`)
+		.send({ ong: 'ONG Esperança' });
+
+		expect(res.status).toBe(200);
+		expect(res.body.status).toBe('aceita');
+		expect(res.body.ong).toBe('ONG Esperança');
+	});
+
+	it('remove a doação da lista de disponíveis depois de aceita', async () => {
+		const criada = await request(app)
+		.post('/api/doacoes')
+		.send({ tipo: 'Leite', quantidade: '20L', validade: '2026-08-03' });
+
+		await request(app)
+		.post(`/api/doacoes/${criada.body.id}/aceitar`)
+		.send({ ong: 'ONG Esperança' });
+
+		const lista = await request(app).get('/api/doacoes');
+		expect(lista.body).toHaveLength(0);
+	});
+
+	// Dado que uma doação já foi aceita por uma ONG
+	// Quando uma segunda ONG tenta aceitar a mesma doação
+	// Então o sistema recusa a segunda tentativa
+	it('recusa aceitar uma doação que já foi aceita por outra ONG', async () => {
+		const criada = await request(app)
+		.post('/api/doacoes')
+		.send({ tipo: 'Arroz', quantidade: '30kg', validade: '2026-08-04' });
+
+		await request(app)
+		.post(`/api/doacoes/${criada.body.id}/aceitar`)
+		.send({ ong: 'ONG Esperança' });
+
+		const segundaTentativa = await request(app)
+		.post(`/api/doacoes/${criada.body.id}/aceitar`)
+		.send({ ong: 'ONG Solidária' });
+
+		expect(segundaTentativa.status).toBe(400);
+	});
 });
 
 /* Exemplo de como transformar um critério de aceite em teste.

@@ -41,7 +41,8 @@ export async function migrar() {
       validade    TEXT NOT NULL,
       status      TEXT NOT NULL DEFAULT 'disponivel',
       ong         TEXT,
-      criada_em   TEXT NOT NULL DEFAULT (datetime('now'))
+      criada_em   TEXT NOT NULL DEFAULT (datetime('now')),
+	  aceita_em   TEXT
     )
   `);
 }
